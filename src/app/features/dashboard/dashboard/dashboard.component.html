@@ -1,0 +1,338 @@
+<div class="pb-8 px-6">
+  <div>
+    <!-- Title -->
+    <h1 class="font-bold text-2xl text-blue-500 pl-4 mb-4">Users Dashboard</h1>
+
+    <!-- Menu Bar -->
+    <div class="grid grid-cols-12 gap-6 mb-6">
+      <!-- Search -->
+      <form class="relative col-span-7" (submit)="onSearch(queryText.value)">
+        <button type="submit">
+          <lucide-icon
+            name="search"
+            class="absolute top-2 left-3 w-4 h-4 cursor-pointer"
+          ></lucide-icon>
+        </button>
+
+        <input
+          type="text"
+          placeholder="Search"
+          class="py-3 pr-5 pl-14 focus:outline-blue-500 rounded-2xl w-full"
+          #queryText
+        />
+      </form>
+
+      <button
+        class="col-span-2 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 active:scale-95"
+        (click)="modal_3.showModal()"
+      >
+        Add user +
+      </button>
+
+      <!-- Sort -->
+      <div
+        class="col-span-3 flex justify-center items-center gap-4 font-semibold"
+      >
+        <!-- Sort By -->
+        <select
+          class="w-full bg-transparent"
+          #sortByValue
+          (change)="onSort(sortByValue.value)"
+        >
+          <option value="" disabled selected>Sort By</option>
+          <option value="name">Name</option>
+          <option value="date">Date</option>
+          <option value="role">Role</option>
+        </select>
+        <!-- Sort Direction -->
+        @if(sortBy) {
+        <select
+          class="w-full bg-transparent"
+          #sortDirectionValue
+          (change)="onSortDirection(sortDirectionValue.value)"
+        >
+          <option value="asc">A - Z</option>
+          <option value="desc">Z - A</option>
+        </select>
+        } @else {
+        <div class="w-full"></div>
+        }
+
+        <lucide-icon name="sliders-horizontal" class="w-5 h-5"></lucide-icon>
+      </div>
+    </div>
+
+    <!-- List -->
+    <div class="bg-white rounded-lg mb-28">
+      <h1 class="p-5 font-semibold">List Users</h1>
+
+      <!-- Table -->
+      <table class="w-full">
+        <thead class="bg-[#eff4fa] text-[#8f9bb3] font-semibold">
+          <tr>
+            <th class="py-5">Name</th>
+            <th></th>
+            <th>Created Date</th>
+            <th>Role</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody class="text-center border-b border-[#eff4fa]">
+          @if (users) {
+          <!-- Table Body -->
+          @for (user of users; track user.id) {
+          <tr class="text-xs">
+            <td class="py-5">
+              <h1 class="font-semibold text-sm">
+                {{ user.firstName }} {{ user.lastName }}
+              </h1>
+              <p class="text-xs text-[#8f9bb3]">{{ user.email }}</p>
+            </td>
+            <td>
+              <div
+                class="badge bg-blue-500 border-none py-3 px-4 text-white font-semibold"
+              >
+                {{
+                  user.permissions[0]
+                    ? user.permissions[0].permissionName
+                    : "No permission"
+                }}
+              </div>
+            </td>
+            <td>{{ user.createdAt }}</td>
+            <td>{{ user.role.roleName }}</td>
+            <td class="">
+              <span-lucide
+                name="pencil"
+                class="inline mr-2 w-4 h-4 stroke-[#c5cee0]"
+              ></span-lucide>
+              <span-lucide
+                name="trash-2"
+                class="inline w-4 h-4 stroke-[#c5cee0]"
+              ></span-lucide>
+            </td>
+          </tr>
+          } }
+        </tbody>
+      </table>
+      <!-- End of table -->
+    </div>
+    <!-- End of list -->
+
+    <!-- Pagination -->
+    @if (users && totalCount) {
+    <div class="text-xs flex justify-center items-center gap-6">
+      <p>Items per page :</p>
+      <select
+        #pageSizeChoose
+        class="px-2 bg-transparent text-xs"
+        (change)="changePageSize(pageSizeChoose.value)"
+        [value]="6"
+      >
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+      </select>
+      <p>
+        {{ (pageNumber - 1) * pageSize + 1 }}-{{
+          (pageNumber - 1) * pageSize + 1 + users.length - 1
+        }}
+        of {{ totalCount }}
+      </p>
+
+      @if (pageNumber == 1) {
+      <lucide-icon name="arrow-left" class="stroke-[#c4c4c4]"></lucide-icon>
+      } @else {
+      <lucide-icon
+        name="arrow-left"
+        class="cursor-pointer"
+        (click)="getPrevPage()"
+      ></lucide-icon>
+
+      } @if (pageNumber * pageSize >= totalCount) {
+      <lucide-icon name="arrow-right" class="stroke-[#c4c4c4]"></lucide-icon>
+      } @else {
+      <lucide-icon
+        name="arrow-right"
+        class="cursor-pointer"
+        (click)="getNextPage()"
+      ></lucide-icon>
+      }
+    </div>
+    }
+    <!-- End of pagination -->
+
+    <!-- Add user Modal -->
+    <dialog #modal_3 class="modal">
+      <div class="bg-white max-h-[calc(100vh-5em) rounded-md w-[1144px]">
+        <div
+          class="flex justify-between items-center py-5 px-4 border-b border-[#eff4fa]"
+        >
+          <h3 class="font-bold text-lg">Add User</h3>
+          <form method="dialog">
+            <button class="rounded-full w-8 h-8 hover:bg-gray-100">✕</button>
+          </form>
+        </div>
+
+        <form [formGroup]="userForm" class="py-5" (ngSubmit)="create()">
+          <!-- Inputs -->
+          <div class="grid grid-cols-12 gap-4 w-full px-5 mb-10">
+            <!-- User ID -->
+            <div class="col-span-full">
+              <input
+                type="text"
+                class="rounded-lg border-2 border-[#eff4fa] px-3 py-1 text-sm w-full focus:outline-blue-500"
+                placeholder="User ID *"
+                formControlName="userId"
+              />
+            </div>
+
+            <!-- First name -->
+            <div class="col-span-6">
+              <input
+                type="text"
+                class="rounded-lg border-2 border-[#eff4fa] px-3 py-1 text-sm w-full focus:outline-blue-500"
+                placeholder="First Name *"
+                formControlName="firstName"
+              />
+            </div>
+
+            <!-- Last name -->
+            <div class="col-span-6">
+              <input
+                type="text"
+                class="rounded-lg border-2 border-[#eff4fa] px-3 py-1 text-sm w-full focus:outline-blue-500"
+                placeholder="Last Name *"
+                formControlName="lastName"
+              />
+            </div>
+
+            <!-- Email -->
+            <div class="col-span-4">
+              <input
+                type="text"
+                class="rounded-lg border-2 border-[#eff4fa] px-3 py-1 text-sm w-full focus:outline-blue-500"
+                placeholder="Email *"
+                formControlName="email"
+              />
+            </div>
+
+            <!-- Mobile -->
+            <div class="col-span-4">
+              <input
+                type="text"
+                class="rounded-lg border-2 border-[#eff4fa] px-3 py-1 text-sm w-full focus:outline-blue-500"
+                placeholder="Mobile"
+                formControlName="phone"
+              />
+            </div>
+
+            <!-- Role -->
+            <div class="col-span-4">
+              <select
+                class="rounded-lg border-2 border-[#eff4fa] px-3 py-1 text-sm w-full focus:outline-blue-500"
+                formControlName="roleId"
+              >
+                <option selected disabled value="">Select Role Type</option>
+                @for (role of roles; track role.roleId) {
+                <option value="{{ role.roleId }}">{{ role.roleName }}</option>
+                }
+              </select>
+            </div>
+
+            <!-- Username -->
+            <div class="col-span-4">
+              <input
+                type="text"
+                class="rounded-lg border-2 border-[#eff4fa] px-3 py-1 text-sm w-full focus:outline-blue-500"
+                placeholder="Username *"
+                formControlName="username"
+              />
+            </div>
+
+            <!-- Password -->
+            <div class="col-span-4">
+              <input
+                type="text"
+                class="rounded-lg border-2 border-[#eff4fa] px-3 py-1 text-sm w-full focus:outline-blue-500"
+                placeholder="Password *"
+                formControlName="password"
+              />
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="col-span-4">
+              <input
+                type="text"
+                class="rounded-lg border-2 border-[#eff4fa] px-3 py-1 text-sm w-full focus:outline-blue-500"
+                placeholder="Confirm Password *"
+                formControlName="confirmPassword"
+              />
+            </div>
+          </div>
+          <!-- End of inputs -->
+
+          <!-- Permissions Table -->
+          <table class="w-full mb-5">
+            <thead class="bg-[#eff4fa] text-[#8f9bb3] font-semibold">
+              <tr>
+                <th class="p-5 text-left">Module Permission</th>
+                <th>Read</th>
+                <th>Write</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+
+            <tbody
+              class="border-b border-[#eff4fa]"
+              formArrayName="permissions"
+            >
+              @if (permissions) {
+              <!-- Table Body -->
+              @for (permission of permissions; track permission.permissionId;
+              let i = $index;) {
+              <tr class="text-xs" formGroupName="{{ i }}">
+                <td class="p-5">
+                  <h1 class="font-semibold text-sm">
+                    {{ permission.permissionName }}
+                  </h1>
+                </td>
+                <td class="text-center">
+                  <input type="checkbox" formControlName="isReadable" />
+                </td>
+                <td class="text-center">
+                  <input type="checkbox" formControlName="isWritable" />
+                </td>
+                <td class="text-center">
+                  <input type="checkbox" formControlName="isDeletable" />
+                </td>
+              </tr>
+              } }
+            </tbody>
+          </table>
+          <!-- End of permissions table -->
+
+          <div class="flex justify-end items-center gap-4 px-5">
+            <button
+              type="submit"
+              class="bg-blue-500 hover:bg-blue-600 rounded-lg px-4 py-1 text-sm text-white"
+            >
+              Add User
+            </button>
+            <button
+              type="button"
+              class="px-4 py-1 text-sm text-[#8f9bb3] rounded-lg hover:bg-gray-100"
+              (click)="modal_3.close()"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+  </div>
+</div>
