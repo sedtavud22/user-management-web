@@ -1,0 +1,215 @@
+<div class="pb-8 px-6">
+  <div>
+    <!-- Title -->
+    <h1 class="font-bold text-2xl text-blue-500 pl-4 mb-4">Documents</h1>
+
+    <!-- Search & Sort -->
+    <div class="grid grid-cols-12 gap-6 mb-6">
+      <!-- Search -->
+      <form class="relative col-span-10">
+        <button type="submit">
+          <lucide-icon
+            name="search"
+            class="absolute top-2 left-3 w-4 h-4 cursor-pointer"
+          ></lucide-icon>
+        </button>
+
+        <input
+          type="text"
+          placeholder="Search"
+          class="py-3 pr-5 pl-14 focus:outline-blue-500 rounded-2xl w-full"
+        />
+      </form>
+
+      <!-- Sort -->
+      <div
+        class="col-span-2 flex justify-center items-center gap-4 font-semibold"
+      >
+        <!-- Sort By -->
+        <select class="w-full bg-transparent">
+          <option value="" disabled selected>Sort By</option>
+          <option value="">Default</option>
+          <option value="name">Name</option>
+          <option value="date">Date</option>
+        </select>
+
+        <lucide-icon name="sliders-horizontal" class="w-5 h-5"></lucide-icon>
+      </div>
+    </div>
+    <!-- End of search & sort -->
+
+    <!-- Menu -->
+    <div class="flex justify-between items-center mb-5">
+      <!-- Icon button group -->
+      <div class="flex gap-4 items-center">
+        <button class="border border-[#dddfe1] rounded-md p-4">
+          <lucide-icon
+            name="monitor"
+            class="w-5 h-5 stroke-blue-500"
+          ></lucide-icon>
+        </button>
+        <button class="border border-[#dddfe1] rounded-md p-4">
+          <lucide-icon
+            name="expand"
+            class="w-5 h-5 stroke-blue-500"
+          ></lucide-icon>
+        </button>
+        <button class="border border-[#dddfe1] rounded-md p-4">
+          <lucide-icon
+            name="notebook"
+            class="w-5 h-5 stroke-blue-500"
+          ></lucide-icon>
+        </button>
+        <button class="border border-[#dddfe1] rounded-md p-4">
+          <lucide-icon
+            name="printer"
+            class="w-5 h-5 stroke-blue-500"
+          ></lucide-icon>
+        </button>
+        <button class="border border-[#dddfe1] rounded-md p-4">
+          <lucide-icon
+            name="trash-2"
+            class="w-5 h-5 stroke-blue-500"
+          ></lucide-icon>
+        </button>
+      </div>
+
+      <!-- Sort -->
+      <div class="flex gap-4 items-center">
+        <select
+          class="bg-transparent border border-[#dddfe1] p-4 rounded-md min-w-56"
+        >
+          <option value="" selected>This month</option>
+          <option value="">Last month</option>
+          <option value="">Last 3 months</option>
+          <option value="">Last 6 months</option>
+          <option value="">Last year</option>
+        </select>
+
+        <select
+          class="bg-transparent border border-[#dddfe1] p-4 rounded-md min-w-56"
+        >
+          <option value="" disabled selected>Documents</option>
+          <option value="">Lorem 1</option>
+          <option value="">Lorem 2</option>
+        </select>
+
+        <button
+          class="bg-blue-500 rounded-md text-white font-extrabold text-xl flex items-center justify-center w-[53.6px] h-[53.6px] hover:bg-blue-600"
+        >
+          +
+        </button>
+      </div>
+    </div>
+    <!-- End of menu -->
+
+    <!-- List -->
+    <div class="bg-white pb-8 pt-5 rounded-lg">
+      <!-- List Title -->
+      <div class="pb-5 border-b border-[#edf2f6] px-6">
+        <h1 class="font-semibold">List of documents</h1>
+        <p class="text-xs text-gray-400">Lorem ipsum dolor sit amet</p>
+      </div>
+
+      <!-- List items -->
+      <div class="flex items-center px-6">
+        <!-- Document Icon -->
+        <button
+          class="bg-[#ecf0f3] rounded-md w-10 h-10 flex items-center justify-center"
+        >
+          <lucide-icon
+            name="file-text"
+            class="w-5 h-5 stroke-blue-500"
+          ></lucide-icon>
+        </button>
+
+        <div
+          class="flex justify-between items-center w-full py-3 border-b border-[#edf2f6]"
+        >
+          <!-- Items text-->
+          <div class="flex items-center gap-24 px-12">
+            <div>
+              <h1 class="text-sm">Lorem ipsum</h1>
+              <p class="text-xs text-gray-400">April 9, 2022</p>
+            </div>
+
+            <p class="text-xs text-gray-400 max-w-[312px]">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore,
+              voluptatum.
+            </p>
+          </div>
+
+          <!-- Items edit & delete -->
+          <div class="flex items-center gap-4">
+            <button
+              class="border border-[#dddfe1] w-9 h-9 flex items-center justify-center"
+            >
+              <lucide-icon
+                name="pencil"
+                class="w-5 h-5 stroke-blue-500"
+              ></lucide-icon>
+            </button>
+            <button
+              class="border border-[#dddfe1] w-9 h-9 flex items-center justify-center"
+            >
+              <lucide-icon
+                name="trash-2"
+                class="w-5 h-5 stroke-blue-500"
+              ></lucide-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center px-6">
+        <!-- Document Icon -->
+        <button
+          class="bg-[#ecf0f3] rounded-md w-10 h-10 flex items-center justify-center"
+        >
+          <lucide-icon
+            name="file-text"
+            class="w-5 h-5 stroke-blue-500"
+          ></lucide-icon>
+        </button>
+
+        <div
+          class="flex justify-between items-center w-full py-3 border-b border-[#edf2f6]"
+        >
+          <!-- Items text-->
+          <div class="flex items-center gap-24 px-12">
+            <div>
+              <h1 class="text-sm">Lorem ipsum</h1>
+              <p class="text-xs text-gray-400">April 9, 2022</p>
+            </div>
+
+            <p class="text-xs text-gray-400 max-w-[312px]">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore,
+              voluptatum.
+            </p>
+          </div>
+
+          <!-- Items edit & delete -->
+          <div class="flex items-center gap-4">
+            <button
+              class="border border-[#dddfe1] w-9 h-9 flex items-center justify-center"
+            >
+              <lucide-icon
+                name="pencil"
+                class="w-5 h-5 stroke-blue-500"
+              ></lucide-icon>
+            </button>
+            <button
+              class="border border-[#dddfe1] w-9 h-9 flex items-center justify-center"
+            >
+              <lucide-icon
+                name="trash-2"
+                class="w-5 h-5 stroke-blue-500"
+              ></lucide-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- End of list items -->
+    </div>
+    <!-- End of list -->
+  </div>
+</div>

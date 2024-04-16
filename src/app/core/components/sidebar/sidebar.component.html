@@ -1,44 +1,53 @@
-<div class="py-10 px-8 flex flex-col gap-14">
+<div class="py-10 pl-6 flex flex-col gap-14">
   <img src="../../../../assets/lenslink.png" class="w-28 h-8" />
 
   <!-- Menu -->
   <div class="flex flex-col gap-16">
-    <div class="flex flex-col gap-8">
-      <div class="flex gap-4">
+    <div class="flex flex-col gap-4">
+      <a
+        routerLink="/"
+        routerLinkActive="border-blue-500 text-blue-500 border-r-4"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="flex gap-4 py-2 pl-2 cursor-pointer hover:bg-slate-100"
+      >
         <lucide-icon name="layout-dashboard"></lucide-icon>
         <p>Dashboard</p>
-      </div>
-      <div class="flex gap-4">
+      </a>
+      <a class="flex gap-4 py-2 pl-2 cursor-pointer hover:bg-slate-100">
         <lucide-icon name="bar-chart"></lucide-icon>
         <p>Users</p>
-      </div>
-      <div class="flex gap-4">
+      </a>
+      <a
+        routerLink="/documents"
+        routerLinkActive="border-blue-500 text-blue-500 border-r-4"
+        class="flex gap-4 py-2 pl-2 cursor-pointer hover:bg-slate-100"
+      >
         <lucide-icon name="file-text"></lucide-icon>
         <p>Documents</p>
-      </div>
-      <div class="flex gap-4">
+      </a>
+      <a class="flex gap-4 py-2 pl-2 cursor-pointer hover:bg-slate-100">
         <lucide-icon name="image"></lucide-icon>
         <p>Photos</p>
-      </div>
-      <div class="flex gap-4">
+      </a>
+      <a class="flex gap-4 py-2 pl-2 cursor-pointer hover:bg-slate-100">
         <lucide-icon name="hand-coins"></lucide-icon>
         <p>Hierarchy</p>
-      </div>
+      </a>
     </div>
 
-    <div class="flex flex-col gap-8">
-      <div class="flex gap-4">
+    <div class="flex flex-col gap-4">
+      <a class="flex gap-4 py-2 pl-2 cursor-pointer hover:bg-slate-100">
         <lucide-icon name="message-square-more"></lucide-icon>
         <p>Message</p>
-      </div>
-      <div class="flex gap-4">
+      </a>
+      <a class="flex gap-4 py-2 pl-2 cursor-pointer hover:bg-slate-100">
         <lucide-icon name="circle-help"></lucide-icon>
         <p>Help</p>
-      </div>
-      <div class="flex gap-4">
+      </a>
+      <a class="flex gap-4 py-2 pl-2 cursor-pointer hover:bg-slate-100">
         <lucide-icon name="settings"></lucide-icon>
         <p>Setting</p>
-      </div>
+      </a>
     </div>
   </div>
 </div>

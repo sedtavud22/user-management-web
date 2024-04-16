@@ -40,12 +40,13 @@
           (change)="onSort(sortByValue.value)"
         >
           <option value="" disabled selected>Sort By</option>
+          <option value="">Default</option>
           <option value="name">Name</option>
           <option value="date">Date</option>
           <option value="role">Role</option>
         </select>
         <!-- Sort Direction -->
-        @if(sortBy) {
+
         <select
           class="w-full bg-transparent"
           #sortDirectionValue
@@ -54,9 +55,6 @@
           <option value="asc">A - Z</option>
           <option value="desc">Z - A</option>
         </select>
-        } @else {
-        <div class="w-full"></div>
-        }
 
         <lucide-icon name="sliders-horizontal" class="w-5 h-5"></lucide-icon>
       </div>

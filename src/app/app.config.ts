@@ -22,6 +22,10 @@ import {
   Trash2,
   ArrowLeft,
   ArrowRight,
+  Monitor,
+  Expand,
+  Notebook,
+  Printer,
 } from 'lucide-angular';
 
 import { routes } from './app.routes';
@@ -55,6 +59,10 @@ export const appConfig: ApplicationConfig = {
         Trash2,
         ArrowLeft,
         ArrowRight,
+        Monitor,
+        Expand,
+        Notebook,
+        Printer,
       })
     ),
   ],
