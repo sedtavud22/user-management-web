@@ -9,10 +9,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
   Validators,
-  FormGroup,
-  FormControl,
-  FormArray,
-  UntypedFormGroup,
+  UntypedFormBuilder,
 } from '@angular/forms';
 import { confirmPasswordValidator } from '../utils/confirm-password.validator';
 
@@ -35,50 +32,38 @@ export class DashboardComponent implements OnInit {
   pageNumber = 1;
   pageSize = 6;
 
-  createPermissionFormArray(permissionArray: Permission[]): FormArray {
-    return new FormArray(
-      permissionArray.map(
-        (permission) =>
-          new FormGroup({
-            permissionId: new FormControl(permission.permissionId),
-            isReadable: new FormControl(false),
-            isWritable: new FormControl(false),
-            isDeletable: new FormControl(false),
-          })
-      )
-    );
-  }
-
-  userForm = new UntypedFormGroup(
+  userForm = this.formBuilder.group(
     {
-      userId: new FormControl('', [Validators.required]),
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.email, Validators.required]),
-      phone: new FormControl(''),
-      roleId: new FormControl('', [Validators.required]),
-      username: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
-      confirmPassword: new FormControl('', [Validators.required]),
-      permissions: new FormArray([]),
+      userId: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.email, Validators.required]],
+      phone: [''],
+      roleId: ['', Validators.required],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+      permissions: this.formBuilder.array([]),
     },
     { validators: confirmPasswordValidator }
   );
 
   buildPermissions(permissionArray: Permission[]) {
-    const arr = permissionArray.map(
-      (permission) =>
-        new FormGroup({
-          permissionId: new FormControl(permission.permissionId),
-          isReadable: new FormControl(false),
-          isWritable: new FormControl(false),
-          isDeletable: new FormControl(false),
-        })
+    const arr = permissionArray.map((permission) =>
+      this.formBuilder.group({
+        permissionId: [permission.permissionId],
+        isReadable: [false],
+        isWriteable: [false],
+        isDeletable: [false],
+      })
     );
-    this.userForm.setControl('permissions', new FormArray(arr));
+    this.userForm.setControl('permissions', this.formBuilder.array(arr));
   }
 
-  constructor(private dashboardService: DashboardService) {}
+  constructor(
+    private formBuilder: UntypedFormBuilder,
+    private dashboardService: DashboardService
+  ) {}
 
   getUsers() {
     return this.dashboardService
